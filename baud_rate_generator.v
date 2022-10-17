@@ -41,9 +41,9 @@ module baud_rate_generator
     always@(*)
     begin
     if(counter==COUNT_MAX_VALUE)
-        tick <= 1;
+        tick = 1;
     else
-        tick <= 0;
+        tick = 0;
     end
     
     assign o_tick = tick;
