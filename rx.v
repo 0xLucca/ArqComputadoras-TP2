@@ -13,12 +13,10 @@ module rx
     output o_valid
 );
 
-    localparam STATE_0 = 6'b000001;
-    localparam STATE_1 = 6'b000010;
-    localparam STATE_2 = 6'b000100;
-    localparam STATE_3 = 6'b001000;
-    localparam STATE_4 = 6'b010000;
-    localparam STATE_5 = 6'b100000;
+    localparam STATE_0 = 4'b0001;
+    localparam STATE_1 = 4'b0010;
+    localparam STATE_2 = 4'b0100;
+    localparam STATE_3 = 4'b1000;
 
     reg valid;
     reg[5:0] state;
