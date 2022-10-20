@@ -19,8 +19,8 @@ module rx
     localparam STATE_3 = 4'b1000;
 
     reg valid;
-    reg[5:0] state;
-    reg[5:0] next_state;
+    reg[3:0] state;
+    reg[3:0] next_state;
     reg[NB_DATA-1:0] data;
     reg[3:0] tick_counter;
     reg[3:0] rx_bit_counter;
