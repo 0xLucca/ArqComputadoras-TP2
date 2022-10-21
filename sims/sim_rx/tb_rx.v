@@ -5,7 +5,7 @@ module tb_rx;
     
     reg clk;
     reg reset;
-    reg tb_tick;
+    wire tb_tick;
     reg rx_data;
     wire [NB_DATA-1:0]data;
     wire valid;
@@ -21,14 +21,54 @@ module tb_rx;
         reset = 0;
         
         #50
-        rx_data = 0;     
+        rx_data = 0;
         
+        #4000
+        rx_data = 1;
         
-        #1000
+        #20000
+        rx_data = 0;
+        
+        #9780
+        rx_data = 1;
+        
+        #9780
+        rx_data = 1;
+        
+        #9780
+        rx_data = 1;
+        
+        #9780
+        rx_data = 1;
+        
+        #9780
+        rx_data = 0;
+        
+        #9780
+        rx_data = 0;
+        
+        #9780
+        rx_data = 1;
+        
+        #9780
+        rx_data = 0;
+        
+        #9780
+        rx_data = 1;
+        
         $finish;  
     end    
     
     always #0.5 clk = ~clk;
+    
+    baud_rate_generator
+    u_baud_rate_generator
+    (
+        .i_clk(clk),
+        .i_reset(reset),
+        .o_tick(tb_tick)
+    );
+    
     rx
     #(
         .NB_DATA( NB_DATA )        

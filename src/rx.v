@@ -22,7 +22,8 @@ module rx
     reg[3:0] state;
     reg[3:0] next_state;
     reg[NB_DATA-1:0] data;
-    reg[3:0] tick_counter;
+    reg[3:0] tick_counter_15;
+    reg[2:0] tick_counter_7;
     reg[3:0] rx_bit_counter;
 
     always @(posedge i_clk) 
@@ -35,29 +36,41 @@ module rx
     
     always@(negedge i_clk)
     begin
-        if(i_tick)
+        if(i_reset)
         begin
-            case(state)
-                STATE_1:
+            tick_counter_7 <= 0;
+            tick_counter_15 <= 0;
+            rx_bit_counter <= 0;
+        end
+        
+        else
+        begin
+            if(i_tick)
+            begin
+                case(state)
+                    STATE_1:
                     begin
-                        tick_counter <= (tick_counter + 1)%8;
+                        tick_counter_7 <= (tick_counter_7 + 1)%8;
                     end
-                STATE_2:
+                    STATE_2:
                     begin
-                        tick_counter <= (tick_counter + 1)%16;
-                        if(tick_counter==15)
+                        tick_counter_15 <= (tick_counter_15 + 1)%16;
+                        if(tick_counter_15==15)
                             begin
                                 rx_bit_counter <= rx_bit_counter + 1;
                                 data[rx_bit_counter] <= i_rx_data;
                             end
                     end
-                default:
-                    begin
-                        tick_counter <= 0;
-                        rx_bit_counter <= 0;
-                    end
-            endcase
-        end  
+                    default:
+                        begin
+                            tick_counter_15 <= 0;
+                            tick_counter_7 <= 0;
+                            rx_bit_counter <= 0;
+                        end
+                endcase
+            end
+        end
+          
     end
         
 
@@ -71,7 +84,7 @@ module rx
                     next_state = STATE_1;
                     
             STATE_1:
-                if(tick_counter<7)
+                if(tick_counter_7<7)
                     next_state = STATE_1;
                 else
                     if(i_rx_data == 1)
@@ -80,7 +93,7 @@ module rx
                         next_state = STATE_2;
                         
             STATE_2:
-                if(rx_bit_counter==8)
+                if(rx_bit_counter==9)
                     begin
                         if(i_rx_data==1)
                             next_state = STATE_3;
