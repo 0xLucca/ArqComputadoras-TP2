@@ -48,7 +48,7 @@ module tx
                         
                         if(tick_counter==15)
                         begin
-                          data = {data[0],data[NB_DATA:1]}
+                          data = {data[0],data[NB_DATA:1]};
                           tx_bit_counter = tx_bit_counter + 1;
                         end
                    end
@@ -91,7 +91,7 @@ module tx
     begin
         case(state)
             STATE_2:
-                tx_data = data[0]
+                tx_data = data[0];
             default:
                 tx_data = 1;
         endcase
