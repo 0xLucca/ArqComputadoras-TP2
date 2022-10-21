@@ -58,8 +58,7 @@ module tx
                     tx_bit_counter = 0;
                     tick_counter = 0;
                 end
-        endcase
-          
+        endcase          
     end
         
 
@@ -83,7 +82,9 @@ module tx
                     next_state = STATE_0;
                 else
                     next_state = STATE_2;
-            end     
+            end
+            default:
+                next_state = STATE_0;                 
         endcase
     end
     
