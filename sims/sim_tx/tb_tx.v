@@ -19,37 +19,15 @@ module tb_tx;
         data = 0;
 
         #20
-        reset = 0;       
+        reset = 0;
+        data = 8'hF0;       
         
         #20000
         valid = 1;
         
-        #9780
-        data[0] = 1; //bit 1
+        #500
+        valid = 0;
         
-        #9780
-        data[1] = 1; //bit 2
-        
-        #9780
-        data[2] = 1; //bit 3
-        
-        #9780
-        data[3] = 1; //bit 4
-        
-        #9780
-        data[4] = 0; //bit 5
-        
-        #9780
-        data[5] = 0; //bit 6
-        
-        #9780
-        data[6] = 1; //bit 7
-        
-        #9780
-        data[7] = 0; //bit 8
-        
-        #9780
-        data[8] = 1; //bit 9
         
         $finish;  
     end    

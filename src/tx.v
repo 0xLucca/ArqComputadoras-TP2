@@ -17,8 +17,8 @@ module tx
     localparam STATE_1 = 3'b010;
     localparam STATE_2 = 3'b100;
 
-    reg[5:0] state;
-    reg[5:0] next_state;
+    reg[2:0] state;
+    reg[2:0] next_state;
     reg[NB_DATA:0] data;
     reg[3:0] tick_counter;
     reg[3:0] tx_bit_counter;
@@ -34,11 +34,17 @@ module tx
     
     always@(negedge i_clk)
     begin
-   
-        case(state) 
+        if(i_reset)
+        begin
+            data[0] <= 0;
+        end
+            
+        else
+        begin
+            case(state) 
             STATE_1:
                 begin
-                    data[NB_DATA:1] = i_data;
+                    data[NB_DATA:1] <= i_data;
                 end
             STATE_2:
                 begin
@@ -48,17 +54,20 @@ module tx
                         
                         if(tick_counter==15)
                         begin
-                          data = {data[0],data[NB_DATA:1]};
-                          tx_bit_counter = tx_bit_counter + 1;
+                          data <= {data[0],data[NB_DATA:1]};
+                          tx_bit_counter <= tx_bit_counter + 1;
                         end
                    end
                 end
             default:
                 begin
-                    tx_bit_counter = 0;
-                    tick_counter = 0;
+                    tx_bit_counter <= 0;
+                    tick_counter <= 0;
                 end
-        endcase          
+        endcase 
+        end
+   
+                 
     end
         
 
