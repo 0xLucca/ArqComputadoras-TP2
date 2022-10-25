@@ -29,6 +29,9 @@ module tb_rx;
         #20000
         rx_data = 0;
         
+        #4.564
+        rx_data = 0;
+        
         #9780
         rx_data = 1;
         
