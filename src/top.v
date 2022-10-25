@@ -9,7 +9,8 @@ module top
     input i_clk,
     input i_reset,
     input i_rx_data,
-    output o_tx_serial_data
+    output o_tx_serial_data,
+    output [NB_DATA-1:0] o_alu
 );
     
     wire tick;
@@ -96,5 +97,6 @@ module top
     );
     
     assign  o_tx_serial_data = tx_serial_data;
+    assign o_alu = res;
     
 endmodule

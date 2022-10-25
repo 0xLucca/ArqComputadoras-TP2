@@ -20,21 +20,21 @@ module alu
     always @(*)
     begin
         case(i_ops)
-            6'b100000:
+            6'b100000://0x20
                 {carry,res} = data_a_un + data_b_un;
-            6'b100010:
+            6'b100010://0x22
                 {carry,res} = {1'b0 , i_data_a - i_data_b};
-            6'b100100:
+            6'b100100://0x24
                 {carry,res} = {1'b0 , i_data_a & i_data_b};
-            6'b100101:
+            6'b100101://0x25
                 {carry,res} = {1'b0 , i_data_a | i_data_b};
-            6'b100110:
+            6'b100110://0x26
                 {carry,res} = {1'b0 , i_data_a ^ i_data_b};
-            6'b000011:
+            6'b000011://0x03
                 {carry,res} = {1'b0 , i_data_a >>> 1};
-            6'b000010:
+            6'b000010://0x02
                 {carry,res} = {1'b0 , i_data_a >> 1};
-            6'b100111:        
+            6'b100111://0x27      
                 {carry,res} = {1'b0 , ~(i_data_a | i_data_b)};
             default:
                 {carry,res} = {1'b0 , i_data_a - i_data_b};
